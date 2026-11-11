@@ -1,0 +1,131 @@
+/* Ranch Ad Blocker. Same palette as the Ranch Launcher: cream text and the
+   cap's green on near-black green. */
+:root {
+  --bg: #0b100c;
+  --ink: #efe8d4;
+  --ink-soft: #9aa391;
+  --ink-faint: #69725f;
+  --line: rgba(239, 232, 212, 0.12);
+  --panel: rgba(16, 23, 17, 0.82);
+  --green: #5cb84a;
+  --green-press: #4ea43e;
+  --amber: #e8b04a;
+  --red: #e2735f;
+  --display: 'Fraunces Variable', Georgia, serif;
+  --body: 'Segoe UI Variable Text', 'Segoe UI', Roboto, system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font: 15px/1.5 var(--body);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  overflow: hidden;
+}
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; padding: 0; }
+button:disabled { cursor: default; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 6px; }
+
+.shell { position: relative; height: 100%; display: grid; grid-template-rows: auto 1fr; }
+.backdrop { position: absolute; inset: 0; z-index: 0; opacity: 0.9; pointer-events: none; }
+.topbar, .scroll { position: relative; z-index: 2; }
+
+.topbar { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px 6px; }
+.brand { display: flex; align-items: center; gap: 10px; }
+.brand img { width: 28px; height: 28px; }
+.brand span { font: 600 21px/1 var(--display); letter-spacing: -0.01em; }
+.update-pill {
+  background: var(--green); color: #0b100c; font-weight: 700; font-size: 12.5px;
+  padding: 7px 14px; border-radius: 999px; transition: background 0.15s;
+}
+.update-pill:hover { background: #6cc75a; }
+
+.scroll { overflow-y: auto; padding: 0 18px 40px; scrollbar-width: thin; scrollbar-color: #2a352b transparent; }
+.scroll > * { max-width: 520px; margin-left: auto; margin-right: auto; }
+
+/* ------------------------------------------------------------ the switch */
+.hero { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 26px 8px 22px; }
+.power {
+  width: 168px; height: 168px; border-radius: 50%;
+  display: grid; place-items: center;
+  color: var(--ink-soft);
+  background: #121913;
+  border: 1.5px solid rgba(239, 232, 212, 0.22);
+  transition: background 0.35s ease, color 0.35s ease, border-color 0.35s ease, transform 0.15s ease;
+  position: relative;
+}
+.power::after {
+  content: ''; position: absolute; inset: -14px; border-radius: 50%;
+  border: 1px solid rgba(239, 232, 212, 0.08);
+  transition: border-color 0.35s ease;
+}
+.power:hover:not(:disabled) { border-color: rgba(239, 232, 212, 0.45); color: var(--ink); }
+.power:active:not(:disabled) { transform: scale(0.97); }
+.power.on { background: var(--green); color: #0b100c; border-color: var(--green); }
+.power.on::after { border-color: rgba(92, 184, 74, 0.35); animation: ring 3.2s ease-in-out infinite; }
+.power.on:hover:not(:disabled) { background: #66c254; color: #0b100c; }
+.power.busy { opacity: 0.7; }
+@keyframes ring {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.06); opacity: 0.4; }
+}
+@media (prefers-reduced-motion: reduce) { .power.on::after { animation: none; } }
+
+.status { margin: 26px 0 0; font: 600 44px/1.05 var(--display); letter-spacing: -0.02em; }
+.is-on .status { color: var(--ink); }
+.lead { margin: 12px 0 0; max-width: 400px; color: var(--ink-soft); font-size: 15.5px; display: flex; flex-wrap: wrap; justify-content: center; }
+.action {
+  margin-top: 20px; padding: 10px 22px; border-radius: 999px;
+  border: 1px solid var(--line); color: var(--ink); font-weight: 600; font-size: 14px;
+  transition: border-color 0.15s, background 0.15s;
+}
+.action:hover:not(:disabled) { border-color: rgba(239, 232, 212, 0.4); background: rgba(239, 232, 212, 0.04); }
+.stat { margin: 16px 0 0; color: var(--green); font-size: 13px; letter-spacing: 0.02em; }
+
+.msg { margin: 14px 0 0; font-size: 14px; color: var(--ink-soft); }
+.msg.ok { color: var(--green); }
+.msg.warn { color: var(--amber); }
+.msg.bad { color: var(--red); }
+
+/* ------------------------------------------------------------ cards */
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 12px;
+  backdrop-filter: blur(6px);
+}
+.kicker { margin: 0 0 6px; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--green); font-weight: 600; }
+.card h2 { margin: 0 0 10px; font: 600 22px/1.15 var(--display); }
+.card h3 { margin: 18px 0 4px; font-size: 14px; }
+.card ol { margin: 0 0 12px; padding-left: 20px; color: var(--ink-soft); font-size: 14px; }
+.card ol b { color: var(--ink); font-weight: 600; }
+.card small, .small { display: block; color: var(--ink-soft); font-size: 13px; }
+.small { margin: 0 0 10px; }
+.card code {
+  display: block; font: 12.5px/1.5 Consolas, 'Roboto Mono', monospace; color: var(--ink);
+  background: rgba(0, 0, 0, 0.35); border: 1px solid var(--line); border-radius: 10px;
+  padding: 10px 12px; margin-bottom: 10px; word-break: break-all; user-select: all;
+}
+.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.row.spread { justify-content: space-between; flex-wrap: nowrap; }
+.chip {
+  padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line); font-size: 13.5px; font-weight: 600;
+  transition: border-color 0.15s, background 0.15s; white-space: nowrap;
+}
+.chip:hover:not(:disabled) { border-color: rgba(239, 232, 212, 0.4); }
+.chip:disabled { opacity: 0.6; }
+.chip.strong { background: var(--green); border-color: var(--green); color: #0b100c; }
+.chip.strong:hover { background: #6cc75a; }
+
+.choice { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; border-top: 1px solid var(--line); cursor: pointer; }
+.choice:first-of-type { border-top: 0; padding-top: 4px; }
+.choice input { margin: 4px 0 0; width: 16px; height: 16px; accent-color: var(--green); flex: none; }
+.choice b { font-weight: 600; }
+
+.footnote { color: var(--ink-faint); font-size: 12.5px; margin-top: 18px; margin-bottom: 0; padding: 0 4px; }
+.footnote.version { margin-top: 8px; }

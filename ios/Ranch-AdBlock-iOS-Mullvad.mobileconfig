@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>PayloadContent</key>
+  <array>
+    <dict>
+      <key>DNSSettings</key>
+      <dict>
+        <key>DNSProtocol</key>
+        <string>HTTPS</string>
+        <key>ServerURL</key>
+        <string>https://adblock.dns.mullvad.net/dns-query</string>
+        <key>ServerAddresses</key>
+        <array>
+        <string>194.242.2.3</string>
+        <string>2a07:e340::3</string>
+        </array>
+      </dict>
+      <key>PayloadDisplayName</key>
+      <string>Ad Blocker (Mullvad DNS)</string>
+      <key>PayloadIdentifier</key>
+      <string>io.github.kingcreeper531.ranchadblock.dns.mullvad</string>
+      <key>PayloadType</key>
+      <string>com.apple.dnsSettings.managed</string>
+      <key>PayloadUUID</key>
+      <string>376DA9BE-2AF2-4714-B94A-36F84E6A7083</string>
+      <key>PayloadVersion</key>
+      <integer>1</integer>
+    </dict>
+  </array>
+  <key>PayloadDescription</key>
+  <string>Blocks ads and trackers in every app by using Mullvad DNS, encrypted. Mullvad keeps no logs. Remove it any time in Settings, General, VPN and Device Management.</string>
+  <key>PayloadDisplayName</key>
+  <string>Ranch Ad Blocker (Mullvad DNS)</string>
+  <key>PayloadIdentifier</key>
+  <string>io.github.kingcreeper531.ranchadblock.mullvad</string>
+  <key>PayloadRemovalDisallowed</key>
+  <false/>
+  <key>PayloadType</key>
+  <string>Configuration</string>
+  <key>PayloadUUID</key>
+  <string>00A996AB-DDE1-4ED8-9EE4-864B29D9685D</string>
+  <key>PayloadVersion</key>
+  <integer>1</integer>
+</dict>
+</plist>

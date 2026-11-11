@@ -1,0 +1,5 @@
+node_modules/
+dist/
+*.log
+# Built from renderer/ by npm run build:ui
+ui/

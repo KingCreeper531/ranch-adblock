@@ -1,0 +1,7 @@
+.gradle/
+.gradle-home/
+build/
+app/build/
+local.properties
+# UI copied in from ../ui at build time
+app/build/generated/

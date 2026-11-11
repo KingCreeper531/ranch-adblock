@@ -1,0 +1,82 @@
+import groovy.json.JsonSlurper
+
+plugins {
+    id 'com.android.application'
+}
+
+// One version number for Windows and Android: read it from adblock/package.json
+def pkg = new JsonSlurper().parse(rootProject.file('../package.json'))
+def appVersion = pkg.version as String
+def (major, minor, patch) = appVersion.tokenize('.').collect { it.replaceAll(/\D.*/, '') as int }
+
+// Same release key as the other Ranch apps (see ~/.gradle/gradle.properties).
+def hasReleaseKey = project.hasProperty('YTM_KEYSTORE') && file(project.property('YTM_KEYSTORE')).exists()
+
+// The app's screen is shared with Windows (adblock/ui)
+def generatedAssets = layout.buildDirectory.dir('generated/ranch-assets')
+def copyUi = tasks.register('copyUi', Sync) {
+    doFirst {
+        if (!rootProject.file('../ui/index.html').exists()) {
+            throw new GradleException("The app's screen isn't built yet. Run `npm run build:ui` in the adblock folder first.")
+        }
+    }
+    into generatedAssets
+    from(rootProject.file('../ui')) { into 'ui' }
+}
+
+android {
+    namespace 'io.github.kingcreeper531.ranchadblock'
+    compileSdk 36
+
+    defaultConfig {
+        applicationId 'io.github.kingcreeper531.ranchadblock'
+        minSdk 28 // Private DNS arrived in Android 9
+        targetSdk 35
+        versionCode major * 10000 + minor * 100 + patch
+        versionName appVersion
+    }
+
+    sourceSets {
+        main.assets.srcDirs += generatedAssets.get().asFile
+    }
+
+    signingConfigs {
+        if (hasReleaseKey) {
+            release {
+                storeFile file(project.property('YTM_KEYSTORE'))
+                storePassword project.property('YTM_KEYSTORE_PASSWORD')
+                keyAlias project.property('YTM_KEY_ALIAS')
+                keyPassword project.property('YTM_KEY_PASSWORD')
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig hasReleaseKey ? signingConfigs.release : signingConfigs.debug
+        }
+    }
+
+    buildFeatures {
+        buildConfig true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "Ranch-AdBlock-Android-${appVersion}.apk"
+        }
+    }
+}
+
+tasks.named('preBuild') { dependsOn copyUi }
+tasks.matching { it.name.startsWith('merge') && it.name.endsWith('Assets') }.configureEach { dependsOn copyUi }
+
+dependencies {
+    implementation 'androidx.webkit:webkit:1.12.1'
+}

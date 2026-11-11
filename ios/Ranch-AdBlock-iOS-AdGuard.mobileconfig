@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>PayloadContent</key>
+  <array>
+    <dict>
+      <key>DNSSettings</key>
+      <dict>
+        <key>DNSProtocol</key>
+        <string>HTTPS</string>
+        <key>ServerURL</key>
+        <string>https://dns.adguard-dns.com/dns-query</string>
+        <key>ServerAddresses</key>
+        <array>
+        <string>94.140.14.14</string>
+        <string>94.140.15.15</string>
+        <string>2a10:50c0::ad1:ff</string>
+        <string>2a10:50c0::ad2:ff</string>
+        </array>
+      </dict>
+      <key>PayloadDisplayName</key>
+      <string>Ad Blocker (AdGuard DNS)</string>
+      <key>PayloadIdentifier</key>
+      <string>io.github.kingcreeper531.ranchadblock.dns.adguard</string>
+      <key>PayloadType</key>
+      <string>com.apple.dnsSettings.managed</string>
+      <key>PayloadUUID</key>
+      <string>5B947F91-AFE9-428B-B7FE-402DC5FDA07F</string>
+      <key>PayloadVersion</key>
+      <integer>1</integer>
+    </dict>
+  </array>
+  <key>PayloadDescription</key>
+  <string>Blocks ads and trackers in every app by using AdGuard DNS, encrypted. Largest ad and tracker list. Remove it any time in Settings, General, VPN and Device Management.</string>
+  <key>PayloadDisplayName</key>
+  <string>Ranch Ad Blocker (AdGuard DNS)</string>
+  <key>PayloadIdentifier</key>
+  <string>io.github.kingcreeper531.ranchadblock.adguard</string>
+  <key>PayloadRemovalDisallowed</key>
+  <false/>
+  <key>PayloadType</key>
+  <string>Configuration</string>
+  <key>PayloadUUID</key>
+  <string>FBBAFBDA-0B4C-4E77-B105-9278817B00B7</string>
+  <key>PayloadVersion</key>
+  <integer>1</integer>
+</dict>
+</plist>

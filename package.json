@@ -1,0 +1,75 @@
+{
+    "name": "ranch-adblock",
+    "productName": "Ranch Ad Blocker",
+    "version": "1.0.0",
+    "description": "Blocks ads and trackers in every app by switching your device to an ad-blocking DNS",
+    "main": "src/main.js",
+    "author": "KingCreeper531",
+    "license": "MIT",
+    "private": true,
+    "scripts": {
+        "build:ui": "vite build --config renderer/vite.config.mjs",
+        "start": "npm run build:ui && electron .",
+        "dist": "npm run build:ui && electron-builder --win",
+        "release": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/release.ps1"
+    },
+    "repository": "https://github.com/KingCreeper531/ranch-adblock",
+    "dependencies": {
+        "electron-updater": "^6.8.11"
+    },
+    "devDependencies": {
+        "@fontsource-variable/fraunces": "^5.3.0",
+        "@gsap/react": "^2.1.2",
+        "@vitejs/plugin-react": "^5.2.0",
+        "electron": "45.2.3",
+        "electron-builder": "^26.18.0",
+        "gsap": "^3.15.1",
+        "motion": "^12.43.0",
+        "react": "^19.3.1",
+        "react-dom": "^19.3.1",
+        "vite": "^7.3.8"
+    },
+    "build": {
+        "appId": "local.ranch.adblock",
+        "productName": "Ranch Ad Blocker",
+        "directories": {
+            "output": "dist",
+            "buildResources": "build"
+        },
+        "files": [
+            "src/**/*",
+            "ui/**/*",
+            "build/icon.png",
+            "package.json"
+        ],
+        "extraResources": [
+            {
+                "from": "scripts/dns.ps1",
+                "to": "dns.ps1"
+            }
+        ],
+        "publish": [
+            {
+                "provider": "github",
+                "owner": "KingCreeper531",
+                "repo": "ranch-adblock",
+                "releaseType": "release"
+            }
+        ],
+        "win": {
+            "target": [
+                "nsis"
+            ],
+            "icon": "build/icon.ico"
+        },
+        "nsis": {
+            "artifactName": "Ranch-AdBlock-Setup-${version}.${ext}",
+            "oneClick": true,
+            "perMachine": false,
+            "createDesktopShortcut": true,
+            "createStartMenuShortcut": true,
+            "shortcutName": "Ranch Ad Blocker",
+            "runAfterFinish": true
+        }
+    }
+}
